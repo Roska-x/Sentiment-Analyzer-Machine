@@ -1,7 +1,4 @@
 {# templates/_sentiment_result.html #}
-{# Este fragmento se renderiza en el backend y se inserta en el div #sentiment-result por HTMX #}
-
-{# Usa la clase sentiment-result-box para estilos #}
 <div id="sentiment-result" class="sentiment-result-screen-content">
     {% if sentiment == "Positivo" %}
         <i class="bi bi-emoji-smile-fill sentiment-icon positive"></i>
@@ -18,9 +15,27 @@
     {% elif sentiment == "Error" %}
         <i class="bi bi-exclamation-triangle-fill sentiment-icon error"></i>
         <p class="sentiment-text error">{{ sentiment }}</p>
-    {% else %}
+    {% elif sentiment == "Espero tu texto..." %} {# Caso específico para el mensaje inicial #}
+        {# <i class="bi bi-chat-dots-fill sentiment-icon unknown"></i> QUITAR O COMENTAR ESTA LÍNEA #}
+        <p class="sentiment-text unknown" style="font-size: 1.1em; margin-top: 10px;">{{ sentiment }}</p> {# Ajuste opcional de estilo para centrar mejor el texto sin icono #}
+    {% else %} {# Cualquier otro caso "desconocido" #}
         <i class="bi bi-question-circle-fill sentiment-icon unknown"></i>
-        <p class="sentiment-text unknown">{{ sentiment }}</p>
+        <p class="sentiment-text unknown">{{ sentiment | default('Resultado no disponible') }}</p>
     {% endif %}
-    <p class="sentiment-details">{{ details }}</p>
+    
+    {# Lógica de 'details' (Asegurarse que el 'details' de "Ingresa tu comentario..." se muestre) #}
+    {% if details %}
+        {# Mostrar 'details' si está presente, independientemente del sentimiento, 
+           a menos que quieras ocultarlo específicamente para "Espero tu texto..." sin el detalle por defecto.
+           La lógica anterior ya cubría bien esto si el 'details' para "Espero tu texto..." se pasaba desde app.py
+        #}
+        {% if sentiment == "Espero tu texto..." and details == "Ingresa tu comentario y presiona el corazón." %}
+            <p class="sentiment-details" style="font-size: 0.8em;">{{ details }}</p> {# Mostrar detalles por defecto para estado inicial #}
+        {% elif sentiment != "Espero tu texto..." %}
+            <p class="sentiment-details">{{ details }}</p> {# Mostrar detalles para otros resultados #}
+        {% elif details != "Ingresa tu comentario y presiona el corazón." %}
+             <p class="sentiment-details">{{ details }}</p> {# Mostrar si hay detalles custom con el texto inicial #}
+        {% endif %}
+{% endif %}
+
 </div>

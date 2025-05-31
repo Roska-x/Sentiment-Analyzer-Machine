@@ -25,14 +25,18 @@
 <body class="d-flex justify-content-center align-items-center vh-100" style="background-color: #0a0a0a;"> {# <--- CAMBIÉ EL COLOR AQUÍ PARA QUE COINCIDA CON TU ÚLTIMO CSS #}
     <div id="sentiment-machine" class="machine-casing">
         <div class="machine-internal-layout">
-            <div class="machine-display-section">
-                 <div class="machine-screen-area">
-                    <div class="machine-screen">
-                        <div id="sentiment-result" class="sentiment-result-screen-content">
-                            <p>Espero tu texto...</p>
-                        </div>
-                    </div>
-                 </div>
+            <div class="machine-display-section">                          
+<div class="machine-screen-area">
+                <div class="machine-screen">
+                    {# Contenido anterior hardcodeado:
+                    <div id="sentiment-result" class="sentiment-result-screen-content">
+                        <p>Espero tu texto...</p>
+                    </div> 
+                    #}
+                    {{ initial_sentiment_html_content | safe }} {# Flask insertará el fragmento renderizado aquí #}
+                </div>
+             </div>
+
                  <div class="machine-label">EMOTION ANALYSIS</div>
             </div>
 
@@ -48,7 +52,6 @@
 
                 <button type="button" id="analyzeButtonVisible" class="machine-button heart">
                       <i class="bi bi-heart-fill"></i>
-                       <span class="htmx-indicator spinner-border spinner-border-sm text-info" role="status" aria-hidden="true"></span>
                  </button>
 
                  <button class="machine-button power" type="button">
@@ -60,8 +63,7 @@
                 hx-post="{{ url_for('analyze_sentiment') }}"
                 hx-trigger="submit"
                 hx-target="#sentiment-result"
-                hx-swap="outerHTML"
-                hx-indicator="#analyzeButtonVisible .htmx-indicator">
+                hx-swap="outerHTML">
 
                  <div class="machine-input-wrapper">
                      <label for="formCommentText" class="input-label">Tu Comentario:</label>

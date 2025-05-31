@@ -1,7 +1,7 @@
 # sentiment_analyzer/app.py
 
 # Importar las librerías necesarias
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, render_template_string 
 import joblib
 import os
 import nltk
@@ -146,9 +146,21 @@ print("DEBUG: Funciones de preprocesamiento definidas.", flush=True)
 def index():
     """
     Ruta principal que sirve la página HTML con el formulario.
+    Renderiza el estado inicial del resultado del sentimiento usando el mismo fragmento que HTMX.
     """
     print("DEBUG: Request received for '/'", flush=True)
-    return render_template('index.html')
+    
+    # Prepara el HTML para el mensaje inicial usando el template _sentiment_result.html
+    initial_sentiment_data = {
+        "sentiment": "Espero tu texto...", # O el mensaje que prefieras
+    }
+    # Usamos render_template_string para procesar el include dentro del contexto de index
+    initial_html_content = render_template_string(
+        "{% include '_sentiment_result.html' %}", 
+        **initial_sentiment_data
+    )
+    
+    return render_template('index.html', initial_sentiment_html_content=initial_html_content)
 
 @app.route('/analyze-sentiment', methods=['POST'])
 def analyze_sentiment():

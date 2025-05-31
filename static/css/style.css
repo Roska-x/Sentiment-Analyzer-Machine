@@ -23,15 +23,15 @@
     --machine-input-placeholder-color: #7f8c8d; /* Placeholder en el input */
 
     /* Sombras para Neumorfismo del Casing */
-    --shadow-distance-casing: 5px;
-    --shadow-blur-casing: 4px;
+    --shadow-distance-casing: 3px;
+    --shadow-blur-casing: 2px;
     --light-neumorphic-casing: rgba(255, 255, 255, 0.35); /* Blanco muy translúcido */
     --dark-neumorphic-casing: #adb9c7;
 
     /* Colores y sombras para botones genéricos (power button) */
     --machine-button-bg: var(--machine-casing-color);
     --shadow-distance-button: 4px;
-    --shadow-blur-button: 4px;
+    --shadow-blur-button: 2px;
     --light-neumorphic-button: rgba(255, 255, 255, 0.5);
     --dark-neumorphic-button: #b8c2d3;
     
@@ -56,7 +56,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* d-flex, justify-content-center, align-items-center, vh-100 están en el HTML */
+
 }
 
 /* Oculta los elementos duplicados del formulario HTMX */
@@ -78,7 +78,7 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2)); /* Sombra exterior suave */
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2)); 
 }
 
 /* --- Contenedor Principal Flex Interno --- */
@@ -103,7 +103,7 @@ body {
 .machine-screen-area {
     width: calc(100% - 20px);
     margin-bottom: 10px;
-    padding: 2px; /* Para el efecto de marco */
+    padding: 2px; 
     background: var(--dark-neumorphic-casing); 
     border-radius: 18px;
     box-shadow: 
@@ -119,47 +119,51 @@ body {
     box-shadow:
         inset 3px 3px 7px rgba(0, 0, 0, 0.6),
         inset -1px -1px 3px rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    overflow: hidden; 
     position: relative;
-    padding: 10px;
+    padding: 8px; 
     text-align: center;
+    box-sizing: border-box; 
 }
 
 /* Contenido dentro de la Pantalla */
 .sentiment-result-screen-content {
     color: var(--theme-unknown-color);
     font-family: 'DigitalFont', 'Lucida Console', Monaco, monospace;
-    font-size: 1rem;
-    line-height: 1.2;
+    font-size: 1rem; /* Tamaño base para el texto "Neutral", "Confianza" */
+    line-height: 1.2; /* Reduce si era mayor */
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box; 
 }
 .sentiment-result-screen-content p {
-    margin: 0 !important;
+    margin: 0 !important; 
     text-shadow: 0 0 3px var(--theme-unknown-color);
 }
 .sentiment-result-screen-content .sentiment-icon {
-    font-size: 2.5em;
-    margin-bottom: 4px;
+    font-size: 2.2em; 
+    margin-bottom: 2px; 
     display: block;
+    line-height: 1; 
 }
 .sentiment-result-screen-content .sentiment-text {
-    font-size: 1.1em;
+    font-size: 1em; 
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-top: 2px; 
 }
 .sentiment-result-screen-content .sentiment-details {
-    font-size: 0.75em;
+    font-size: 0.7em; 
     opacity: 0.85;
-    margin-top: 3px;
+    margin-top: 2px; 
 }
 
 /* Colores de sentimiento específicos */
@@ -305,18 +309,6 @@ body {
     z-index: 1;
 }
 
-/* El spinner DENTRO del botón corazón */
-.machine-button.heart .htmx-indicator {
-    width: 24px;
-    height: 24px;
-    color: var(--heart-icon-color); /* Mismo color que el corazón */
-    border-width: .22em;
-    position: absolute; /* Para superponerse cuando está activo */
-    z-index: 2; /* Por encima del icono del corazón */
-    /* display: none; es manejado por htmx-request */
-}
-.htmx-request.machine-button.heart i { display: none !important; }
-.htmx-request.machine-button.heart .htmx-indicator { display: inline-block !important; }
 
 
 /* Hover y Active para el botón corazón */
@@ -404,4 +396,42 @@ body {
     .machine-button.power i { font-size: 20px; }
     .machine-lines-indicators { width: 35px; height: 20px; }
     .machine-lines-indicators span { height: 4px; }
+}
+/* --- Estilos para el Estado "Analizando" --- */
+.sentiment-result-screen-content.analyzing-state {
+    /* Puedes ajustar esto según sea necesario */
+}
+
+.sentiment-result-screen-content .analyzing-icon {
+    font-size: 2.2em; /* O el tamaño que prefieras */
+    color: var(--theme-info-color); /* O un color específico para "analizando" */
+    margin-bottom: 5px;
+}
+
+.sentiment-result-screen-content .analyzing-text {
+    font-size: 1em; /* O el tamaño que prefieras */
+    color: var(--theme-info-color); /* O un color específico para "analizando" */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ecg-line-container {
+    width: 80%; /* Ajusta el ancho */
+    height: 40px; /* Ajusta la altura */
+    margin-bottom: 8px; /* Espacio debajo de la línea */
+    overflow: hidden; /* Clave para el efecto de barrido */
+    position: relative; /* Para el pseudo-elemento si lo usaras */
+}
+
+.ecg-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.ecg-path {
+    stroke: var(--theme-positive-color); /* Verde por defecto, o puedes cambiarlo */
+    stroke-dasharray: 500; /* Un valor grande para que la línea esté "dibujada" */
+    stroke-dashoffset: 500; /* Empieza "oculta" */
+    /* La animación la manejará GSAP */
 }
