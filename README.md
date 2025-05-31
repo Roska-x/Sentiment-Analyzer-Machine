@@ -201,7 +201,7 @@ sentiment_analyzer/
 └── templates/             # Plantillas HTML (Jinja2)
     ├── index.html         # Página principal con la UI
     └── _sentiment_result.html # Fragmento HTML para la respuesta de HTMX
-```
+
 
 
 ## Autor
