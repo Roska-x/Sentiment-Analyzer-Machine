@@ -1,0 +1,34 @@
+# Archivos y directorios generales ignorados en muchos proyectos Python
+
+# Entorno virtual de Python
+venv/
+.venv/ # Alternativamente, si usas .venv/ en lugar de venv/
+
+# Archivos generados por Python
+__pycache__/
+*.pyc # Archivos compilados de Python
+*.log # Archivos de log (si tu app o scripts generan logs)
+
+# Archivos de IDEs comunes
+.vscode/ # VS Code
+.idea/   # JetBrains IDEs (PyCharm)
+
+# Archivos del modelo ML entrenado (generados por train_model.py)
+# Estos deben ser reconstruidos por el usuario que clona el repo ejecutando el script de entrenamiento
+model/*.pkl 
+model/ # Ignorar toda la carpeta model si solo contiene los .pkl generados
+
+# Si model/ contiene otros archivos *no* generados (ej: un archivo .md de documentacion interna),
+# ignora solo los .pkl asi:
+# model/*.pkl
+# y comenta o elimina la línea 'model/'
+
+# Si usas jupyter notebooks (.ipynb) para experimentation
+#.ipynb_checkpoints # Checkpoints de notebooks
+
+# Archivos de sistema/OS
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Archivos temporales generados por algunos editores/herramientas
+*~ # Archivos de respaldo de Emacs u otros editores

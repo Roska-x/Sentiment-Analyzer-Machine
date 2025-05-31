@@ -1,0 +1,26 @@
+{# templates/_sentiment_result.html #}
+{# Este fragmento se renderiza en el backend y se inserta en el div #sentiment-result por HTMX #}
+
+{# Usa la clase sentiment-result-box para estilos #}
+<div id="sentiment-result" class="sentiment-result-screen-content">
+    {% if sentiment == "Positivo" %}
+        <i class="bi bi-emoji-smile-fill sentiment-icon positive"></i>
+        <p class="sentiment-text positive">{{ sentiment }}</p>
+    {% elif sentiment == "Negativo" %}
+        <i class="bi bi-emoji-frown-fill sentiment-icon negative"></i>
+        <p class="sentiment-text negative">{{ sentiment }}</p>
+    {% elif sentiment == "Neutral" %}
+        <i class="bi bi-emoji-neutral-fill sentiment-icon neutral"></i>
+        <p class="sentiment-text neutral">{{ sentiment }}</p>
+    {% elif sentiment == "Info" %}
+        <i class="bi bi-info-circle-fill sentiment-icon info"></i>
+        <p class="sentiment-text info">{{ sentiment }}</p>
+    {% elif sentiment == "Error" %}
+        <i class="bi bi-exclamation-triangle-fill sentiment-icon error"></i>
+        <p class="sentiment-text error">{{ sentiment }}</p>
+    {% else %}
+        <i class="bi bi-question-circle-fill sentiment-icon unknown"></i>
+        <p class="sentiment-text unknown">{{ sentiment }}</p>
+    {% endif %}
+    <p class="sentiment-details">{{ details }}</p>
+</div>

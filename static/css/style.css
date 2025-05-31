@@ -1,0 +1,407 @@
+/* static/css/style.css */
+
+/* --- Fuente Personalizada --- */
+/* Asegúrate de que Orbitron-Regular.ttf esté en static/fonts/ */
+@font-face {
+    font-family: 'DigitalFont';
+    src: url('../fonts/Orbitron-Regular.ttf') format('truetype'); /* Ruta relativa desde static/css/ a static/fonts/ */
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --- Variables CSS --- */
+:root {
+    /* Colores principales de la máquina */
+    --machine-casing-color: #e0e5ec;       /* Gris azulado muy claro para el neumorfismo */
+    --machine-screen-bg: #0d1b2a;           /* Azul muy oscuro para la pantalla */
+    --machine-screen-text-color: #00ffff;    /* Cyan brillante para texto pantalla por defecto */
+    --machine-element-color: #5f738c;       /* Gris azulado más oscuro para elementos (label, líneas) */
+    --machine-accent-color: #00ffff;         /* Cyan brillante para el corazón y acentos visuales */
+    --machine-input-bg: #dde3ea;             /* Un poco más oscuro que el casing para el input */
+    --machine-input-text-color: #2c3e50;     /* Texto oscuro en el input */
+    --machine-input-placeholder-color: #7f8c8d; /* Placeholder en el input */
+
+    /* Sombras para Neumorfismo del Casing */
+    --shadow-distance-casing: 5px;
+    --shadow-blur-casing: 4px;
+    --light-neumorphic-casing: rgba(255, 255, 255, 0.35); /* Blanco muy translúcido */
+    --dark-neumorphic-casing: #adb9c7;
+
+    /* Colores y sombras para botones genéricos (power button) */
+    --machine-button-bg: var(--machine-casing-color);
+    --shadow-distance-button: 4px;
+    --shadow-blur-button: 4px;
+    --light-neumorphic-button: rgba(255, 255, 255, 0.5);
+    --dark-neumorphic-button: #b8c2d3;
+    
+    /* Variables específicas para el Botón Corazón */
+    --heart-button-bg: #0d1b2a; /* Fondo oscuro azul marino, como la pantalla */
+    --heart-button-border-inner-glow: var(--machine-accent-color);
+    --heart-icon-color: var(--machine-accent-color);
+
+    /* Colores para los sentimientos */
+    --theme-positive-color: #2ecc71;
+    --theme-negative-color: #e74c3c;
+    --theme-neutral-color: #3498db;
+    --theme-info-color: var(--machine-accent-color);
+    --theme-error-color: #f39c12;
+    --theme-unknown-color: #bdc3c7;
+}
+
+/* --- Estilos Base Global --- */
+body {
+    background-color: #0a0a0a; /* Fondo negro oscuro */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* d-flex, justify-content-center, align-items-center, vh-100 están en el HTML */
+}
+
+/* Oculta los elementos duplicados del formulario HTMX */
+#sentiment-form .machine-input-wrapper,
+#sentiment-form .machine-button[type="submit"] {
+    display: none !important;
+}
+
+/* --- Estilos de la Carcasa de la Máquina --- */
+.machine-casing {
+    width: 320px;
+    min-height: 520px;
+    padding: 20px;
+    background-color: var(--machine-casing-color);
+    border-radius: 35px;
+    box-shadow:
+        var(--shadow-distance-casing) var(--shadow-distance-casing) var(--shadow-blur-casing) var(--dark-neumorphic-casing),
+        calc(-1 * var(--shadow-distance-casing)) calc(-1 * var(--shadow-distance-casing)) var(--shadow-blur-casing) var(--light-neumorphic-casing);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.2)); /* Sombra exterior suave */
+}
+
+/* --- Contenedor Principal Flex Interno --- */
+.machine-internal-layout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* --- Sección Superior: Pantalla y Etiqueta --- */
+.machine-display-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.machine-screen-area {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 2px; /* Para el efecto de marco */
+    background: var(--dark-neumorphic-casing); 
+    border-radius: 18px;
+    box-shadow: 
+        inset 1px 1px 2px color-mix(in srgb, var(--dark-neumorphic-casing) 70%, black), 
+        inset -1px -1px 2px var(--light-neumorphic-casing);
+}
+
+.machine-screen {
+    width: 100%;
+    height: 100px;
+    background-color: var(--machine-screen-bg);
+    border-radius: 15px;
+    box-shadow:
+        inset 3px 3px 7px rgba(0, 0, 0, 0.6),
+        inset -1px -1px 3px rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Contenido dentro de la Pantalla */
+.sentiment-result-screen-content {
+    color: var(--theme-unknown-color);
+    font-family: 'DigitalFont', 'Lucida Console', Monaco, monospace;
+    font-size: 1rem;
+    line-height: 1.2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.sentiment-result-screen-content p {
+    margin: 0 !important;
+    text-shadow: 0 0 3px var(--theme-unknown-color);
+}
+.sentiment-result-screen-content .sentiment-icon {
+    font-size: 2.5em;
+    margin-bottom: 4px;
+    display: block;
+}
+.sentiment-result-screen-content .sentiment-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sentiment-result-screen-content .sentiment-details {
+    font-size: 0.75em;
+    opacity: 0.85;
+    margin-top: 3px;
+}
+
+/* Colores de sentimiento específicos */
+.machine-screen .sentiment-icon.positive, .machine-screen .sentiment-text.positive { color: var(--theme-positive-color) !important; text-shadow: 0 0 6px var(--theme-positive-color), 0 0 10px color-mix(in srgb, var(--theme-positive-color) 50%, transparent); }
+.machine-screen .sentiment-icon.negative, .machine-screen .sentiment-text.negative { color: var(--theme-negative-color) !important; text-shadow: 0 0 6px var(--theme-negative-color), 0 0 10px color-mix(in srgb, var(--theme-negative-color) 50%, transparent); }
+.machine-screen .sentiment-icon.neutral,  .machine-screen .sentiment-text.neutral  { color: var(--theme-neutral-color) !important; text-shadow: 0 0 6px var(--theme-neutral-color), 0 0 10px color-mix(in srgb, var(--theme-neutral-color) 50%, transparent); }
+.machine-screen .sentiment-icon.info,     .machine-screen .sentiment-text.info     { color: var(--theme-info-color) !important;   text-shadow: 0 0 6px var(--theme-info-color), 0 0 10px color-mix(in srgb, var(--theme-info-color) 50%, transparent); }
+.machine-screen .sentiment-icon.error,    .machine-screen .sentiment-text.error    { color: var(--theme-error-color) !important;  text-shadow: 0 0 6px var(--theme-error-color), 0 0 10px color-mix(in srgb, var(--theme-error-color) 50%, transparent); }
+.machine-screen .sentiment-icon.unknown,  .machine-screen .sentiment-text.unknown  { color: var(--theme-unknown-color) !important;text-shadow: 0 0 6px var(--theme-unknown-color), 0 0 10px color-mix(in srgb, var(--theme-unknown-color) 50%, transparent); }
+
+/* Etiqueta "EMOTION ANALYSIS" */
+.machine-label {
+    color: var(--machine-element-color);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: 'DigitalFont', 'Lucida Console', Monaco, monospace;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.7), -1px -1px 1px rgba(0,0,0,0.1);
+}
+
+/* --- Área de Entrada de Texto --- */
+.machine-input-section {
+     width: calc(100% - 20px);
+}
+.machine-input-wrapper {
+     width: 100%;
+     margin: 0 auto;
+     position: relative;
+     display: flex; flex-direction: column;
+     gap: 6px;
+}
+.input-label {
+     display: block;
+     color: var(--machine-element-color);
+     font-size: 0.75rem;
+     font-weight: 500;
+     padding-left: 5px;
+}
+.machine-input-area {
+    width: 100%; 
+    box-sizing: border-box;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--machine-input-bg);
+    color: var(--machine-input-text-color);
+    box-shadow:
+        inset 2px 2px 5px var(--dark-neumorphic-casing), /* Usar sombras del casing para coherencia */
+        inset -2px -2px 5px var(--light-neumorphic-casing);
+    resize: none;
+    outline: none;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    font-size: 0.9rem;
+    min-height: 75px;
+    transition: box-shadow 0.2s ease-in-out;
+}
+.machine-input-area::placeholder {
+    color: var(--machine-input-placeholder-color);
+    font-style: italic;
+}
+.machine-input-area:focus {
+    box-shadow:
+        inset 2px 2px 5px var(--dark-neumorphic-casing),
+        inset -2px -2px 5px var(--light-neumorphic-casing),
+        0 0 0 2px color-mix(in srgb, var(--machine-accent-color), transparent 60%);
+}
+
+/* --- Área Inferior: Controles --- */
+.machine-controls-section {
+    width: calc(100% - 10px);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-items: center;
+    padding: 0 5px;
+    gap: 10px;
+    margin-top: 5px;
+}
+.machine-lines-indicators { justify-self: start; margin-left: 5px; }
+.machine-button.power { justify-self: end; margin-right: 5px; }
+
+/* --- Base para los botones (Aplica a Power, el botón Corazón lo sobrescribe casi todo) --- */
+.machine-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: var(--machine-button-bg);
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+    border-radius: 50%;
+    position: relative; 
+    box-shadow:
+        var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button),
+        calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
+}
+.machine-button:hover {
+    box-shadow:
+        calc(var(--shadow-distance-button) * 0.7) calc(var(--shadow-distance-button) * 0.7) calc(var(--shadow-blur-button) * 0.7) var(--dark-neumorphic-button),
+        calc(-1 * var(--shadow-distance-button) * 0.7) calc(-1 * var(--shadow-distance-button) * 0.7) calc(var(--shadow-blur-button) * 0.7) var(--light-neumorphic-button);
+}
+.machine-button:active {
+    box-shadow:
+        inset calc(var(--shadow-distance-button) * 0.5) calc(var(--shadow-distance-button) * 0.5) calc(var(--shadow-blur-button) * 0.5) var(--dark-neumorphic-button),
+        inset calc(-1 * var(--shadow-distance-button) * 0.5) calc(-1 * var(--shadow-distance-button) * 0.5) calc(var(--shadow-blur-button) * 0.5) var(--light-neumorphic-button);
+    transform: scale(0.97);
+}
+.machine-button i {
+    pointer-events: none;
+    color: var(--machine-element-color);
+    transition: color 0.1s ease-out;
+}
+
+/* --- Estilos Botón Corazón (Rehaciendo el efecto de la referencia) --- */
+.machine-button.heart {
+    width: 80px;
+    height: 80px;
+    background-color: var(--heart-button-bg); /* Fondo oscuro */
+    border-radius: 50%;
+    padding: 0; /* Quitamos el padding, el efecto de borde se hará con box-shadow múltiples */
+    box-shadow: /* Múltiples box-shadows para los anillos y el bisel interior */
+        /* Anillo exterior (ligeramente más claro que el fondo del botón) */
+        0 0 0 3px color-mix(in srgb, var(--heart-button-bg) 80%, #fff 5%), 
+        /* Bisel/sombra interna para efecto de profundidad */
+        inset 0 0 10px rgba(0,0,0,0.5),
+        /* Sombra neumórfica exterior sutil del casing (si se desea) o quitar */
+        var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button),
+        calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
+    transition: box-shadow 0.2s ease-out, transform 0.15s ease-out;
+}
+
+/* El icono del corazón y su brillo interior */
+.machine-button.heart i {
+    font-size: 36px; /* Ajusta este valor para el centrado perfecto */
+    color: var(--heart-icon-color);
+    text-shadow: /* Glow del corazón */
+        0 0 6px var(--heart-icon-color),
+        0 0 8px var(--heart-icon-color),
+        0 0 10px color-mix(in srgb, var(--heart-icon-color) 50%, transparent);
+    transition: text-shadow 0.2s ease-out, transform 0.15s ease-out;
+    position: relative; /* Necesario si el spinner va encima */
+    z-index: 1;
+}
+
+/* El spinner DENTRO del botón corazón */
+.machine-button.heart .htmx-indicator {
+    width: 24px;
+    height: 24px;
+    color: var(--heart-icon-color); /* Mismo color que el corazón */
+    border-width: .22em;
+    position: absolute; /* Para superponerse cuando está activo */
+    z-index: 2; /* Por encima del icono del corazón */
+    /* display: none; es manejado por htmx-request */
+}
+.htmx-request.machine-button.heart i { display: none !important; }
+.htmx-request.machine-button.heart .htmx-indicator { display: inline-block !important; }
+
+
+/* Hover y Active para el botón corazón */
+.machine-button.heart:hover {
+    box-shadow: /* Intensificar los efectos */
+        0 0 0 4px color-mix(in srgb, var(--heart-button-bg) 70%, var(--heart-icon-color) 20%), /* Anillo exterior más brillante */
+        inset 0 0 12px rgba(0,0,0,0.6),
+        var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button), /* Mantenemos la sombra neumórfica si está */
+        calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
+}
+.machine-button.heart:hover i {
+    text-shadow:
+        0 0 8px var(--heart-icon-color),
+        0 0 18px var(--heart-icon-color),
+        0 0 30px color-mix(in srgb, var(--heart-icon-color) 70%, transparent);
+    transform: scale(1.03);
+}
+
+.machine-button.heart:active {
+    transform: scale(0.96); /* Un poco más de hundimiento */
+    box-shadow: /* Anillo exterior se atenúa, sombra interior más fuerte */
+        0 0 0 2px color-mix(in srgb, var(--heart-button-bg) 90%, #fff 3%), 
+        inset 0 0 15px rgba(0,0,0,0.7);
+}
+.machine-button.heart:active i {
+    transform: scale(0.98); /* Icono se encoge un poco más con el botón */
+    text-shadow: /* Glow muy reducido */
+        0 0 4px var(--heart-icon-color),
+        0 0 8px color-mix(in srgb, var(--heart-icon-color) 30%, transparent);
+}
+
+/* --- Botón Encendido (Power) --- */
+.machine-button.power {
+    width: 48px;
+    height: 48px;
+}
+.machine-button.power i {
+    font-size: 22px;
+}
+.machine-button.power:hover i {
+    color: color-mix(in srgb, var(--machine-element-color), #fff 40%);
+}
+
+/* --- Indicadores de Tres Líneas --- */
+.machine-lines-indicators {
+    width: 40px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.machine-lines-indicators span {
+    display: block;
+    height: 4.5px;
+    background-color: var(--machine-element-color);
+    border-radius: 2px;
+    box-shadow:
+      inset 1px 1px 1.5px color-mix(in srgb, var(--dark-neumorphic-casing) 50%, black),
+      inset -0.5px -0.5px 1px color-mix(in srgb, var(--light-neumorphic-casing) 50%, white);
+}
+.machine-lines-indicators span:nth-child(1) { width: 100%; }
+.machine-lines-indicators span:nth-child(2) { width: 70%; }
+.machine-lines-indicators span:nth-child(3) { width: 40%; }
+
+/* --- Media Queries --- */
+@media (max-width: 360px) {
+    .machine-casing {
+        width: 96%;
+        padding: 15px;
+        min-height: auto;
+        border-radius: 25px;
+    }
+    .machine-internal-layout { gap: 12px; }
+    .machine-screen-area { width: calc(100% - 10px); }
+    .machine-screen { height: 90px; border-radius: 12px; }
+    .sentiment-result-screen-content { font-size: 0.9rem; }
+    .sentiment-result-screen-content .sentiment-icon { font-size: 2.2em; }
+    .machine-label { font-size: 0.8rem; letter-spacing: 1.5px; }
+    .machine-input-section { width: calc(100% - 10px); }
+    .machine-input-area { min-height: 65px; padding: 8px 10px;}
+    .machine-controls-section { width: 100%; gap: 5px; }
+    .machine-button.heart { width: 70px; height: 70px; } /* Ajustado para móvil */
+    .machine-button.heart i { font-size: 30px; } /* Ajustado para móvil */
+    .machine-button.power { width: 42px; height: 42px; }
+    .machine-button.power i { font-size: 20px; }
+    .machine-lines-indicators { width: 35px; height: 20px; }
+    .machine-lines-indicators span { height: 4px; }
+}
