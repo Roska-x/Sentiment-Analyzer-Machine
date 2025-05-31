@@ -53,6 +53,7 @@ Este proyecto sirve como una demostración práctica de la integración de model
 ## Cómo Funciona (Diagrama Simplificado del Pipeline)
 
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#CCCCCC', 'textColor': '#FFFFFF'}}}%%
 graph TD
     A["Texto Crudo (Input Usuario)"] --> B["Preprocesamiento (NLTK)"];
     B -- "Texto Limpio" --> C["Vectorización TF-IDF (scikit-learn)"];
@@ -66,11 +67,9 @@ graph TD
 
     %% Clase para nodos principales/de proceso (azul marino oscuro)
     classDef grey fill:#001f3f,stroke:#EAEAEA,color:#FFFFFF;
-    %% Nodos de esta clase: B (Preprocesamiento), C (Vectorización), D (Modelo), E (Mapeo), F (Backend Flask)
 
-    %% Clase para nodos de entrada/salida/UI (azul medio o un gris claro)
+    %% Clase para nodos de entrada/salida/UI (azul medio)
     classDef primary fill:#0074D9,stroke:#EAEAEA,color:#FFFFFF;
-    %% Nodos de esta clase: A (Input Usuario), G (HTMX Actualiza), H (GSAP Anima)
 
     %% Aplicar las clases a los nodos específicos
     class A,G,H primary;
