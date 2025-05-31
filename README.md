@@ -110,7 +110,7 @@ Al construir este proyecto, he aplicado y reforzado activamente habilidades clav
 
     Depuración Sistemática y Resolución de Problemas: Identificación y solución de errores en múltiples capas del stack (backend, frontend, pipeline de datos ML, serialización), incluyendo NameError, ValueError relacionados con tipos de datos en ML, y manejo de peticiones web. Cada error fue una oportunidad para profundizar en la comprensión del funcionamiento interno y la interoperabilidad de las herramientas.
 
-Instalación y Ejecución Local
+## Instalación y Ejecución Local
 
 Sigue estos pasos para poner la aplicación en marcha en tu máquina local:
 
@@ -179,7 +179,7 @@ python app.py
 
 8. Acceder a la Aplicación: Abre tu navegador web y visita http://127.0.0.1:5000/.
 
-Estructura del Proyecto
+## Estructura del Proyecto
 
       
 sentiment_analyzer/
@@ -204,7 +204,7 @@ sentiment_analyzer/
     └── _sentiment_result.html # Fragmento HTML para la respuesta de HTMX
 
 
-Autor
+## Autor
 
     Franco Donati
 
