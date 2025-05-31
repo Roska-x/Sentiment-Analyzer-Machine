@@ -180,27 +180,28 @@ python app.py
 
 ## Estructura del Proyecto
 
-      
+```text
 sentiment_analyzer/
-├── app.py             # Aplicación Flask principal
-├── train_model.py     # Script para entrenar y guardar el modelo ML
-├── requirements.txt   # Dependencias de Python
-├── Reddit_Data.csv    # Archivo del dataset de entrenamiento
-├── model/             # Carpeta para guardar archivos del modelo (generada por train_model.py)
+├── app.py                 # Aplicación Flask principal
+├── train_model.py         # Script para entrenar y guardar el modelo ML
+├── requirements.txt       # Dependencias de Python
+├── Reddit_Data.csv        # Archivo del dataset de entrenamiento
+├── model/                 # Carpeta para guardar archivos del modelo
 │   ├── vectorizer.pkl
 │   └── sentiment_model.pkl
-├── static/            # Archivos estáticos (CSS, JS, fuentes, imágenes)
+├── static/                # Archivos estáticos (CSS, JS, fuentes, imágenes)
 │   ├── css/
-│   │   └── style.css  # Estilos de la UI de la máquina y tema original
-│   ├── fonts/         # (Ej: Orbitron-Regular.ttf si usas la fuente digital)
+│   │   └── style.css      # Estilos de la UI y tema original
+│   ├── fonts/             # (Ej: Orbitron-Regular.ttf si usas fuente digital)
 │   │   └── ...
-│   ├── img/           # (Ej: favicon.ico, otros si usas)
+│   ├── img/               # (Ej: favicon.ico, etc.)
 │   │   └── ...
 │   └── js/
-│       └── main.js    # Lógica JavaScript del frontend (GSAP, HTMX event listeners)
-└── templates/         # Plantillas HTML (Jinja2)
-    ├── index.html     # Página principal con la UI de la máquina
+│       └── main.js        # Lógica JavaScript del frontend (GSAP, HTMX)
+└── templates/             # Plantillas HTML (Jinja2)
+    ├── index.html         # Página principal con la UI
     └── _sentiment_result.html # Fragmento HTML para la respuesta de HTMX
+```
 
 
 ## Autor
