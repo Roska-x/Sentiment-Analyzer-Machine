@@ -48,6 +48,8 @@ Este proyecto sirve como una demostración práctica de la integración de model
 *   **GSAP:** Animaciones web.
 *   **Bootstrap (parcial):** Íconos (`Bootstrap Icons`), utilidades de layout.
 
+
+
 ## Cómo Funciona (Diagrama Simplificado del Pipeline)
 
 ```mermaid
@@ -65,7 +67,9 @@ graph TD
     class A,G,H primary;
     class B,C,D,E,F grey;
 
-Habilidades Demostradas
+
+
+## Habilidades Demostradas
 
 Al construir este proyecto, he aplicado y reforzado activamente habilidades clave en:
 
