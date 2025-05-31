@@ -206,10 +206,12 @@ sentiment_analyzer/
 
 ## Autor
 
-    Franco Donati
 
-    linkedin.com/in/franco-donati/
+Franco Donati
 
-    https://github.com/Roska-x/Sentymental-Analysis-Machine/
+linkedin.com/in/franco-donati/
+
+https://github.com/Roska-x/Sentymental-Analysis-Machine/
+
 
         
