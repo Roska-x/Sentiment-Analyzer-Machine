@@ -53,25 +53,30 @@ Este proyecto sirve como una demostración práctica de la integración de model
 ## Cómo Funciona (Diagrama Simplificado del Pipeline)
 
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'lineColor': '#CCCCCC', 'textColor': '#FFFFFF'}}}%%
+%%{init: {
+    'theme': 'dark',
+    'themeVariables': {
+        'lineColor': '#A9A9A9', // Un gris un poco más oscuro para las líneas
+        'textColor': '#FFFFFF'
+    },
+    'flowchart': {
+        'htmlLabels': true, // Permite el uso de <br> y otro HTML simple en etiquetas
+        'nodeSpacing': 50,
+        'rankSpacing': 60
+    }
+}}%%
 graph TD
-    A["Texto Crudo (Input Usuario)"] --> B["Preprocesamiento (NLTK)"];
-    B -- "Texto Limpio" --> C["Vectorización TF-IDF (scikit-learn)"];
-    C -- "Vector Numérico" --> D["Modelo Regresión Logística (scikit-learn)"];
-    D -- "Predicción (-1, 0, 1) + Probabilidades" --> E["Mapeo a Etiqueta Texto (Flask/Python)"];
-    E -- "Resultado Formateado" --> F["Backend Flask genera HTML"];
-    F -- "HTML Parcial" --> G["HTMX actualiza Pantalla"];
-    G --> H["GSAP anima Aparición"];
+    A["Texto Crudo<br>(Input Usuario)"] --> B["Preprocesamiento<br>(NLTK)"];
+    B -- "Texto Limpio" --> C["Vectorización TF-IDF<br>(scikit-learn)"];
+    C -- "Vector Numérico" --> D["Modelo Regresión<br>Logística (scikit-learn)"];
+    D -- "Predicción (-1, 0, 1)<br>+ Probabilidades" --> E["Mapeo a Etiqueta<br>Texto (Flask/Python)"];
+    E -- "Resultado<br>Formateado" --> F["Backend Flask<br>genera HTML"];
+    F -- "HTML Parcial" --> G["HTMX<br>actualiza Pantalla"];
+    G --> H["GSAP<br>anima Aparición"];
 
-    %% --- Estilos Mejorados para Contraste en Tema Oscuro ---
+    classDef grey fill:#001f3f,stroke:#E0E0E0,color:#FFFFFF,font-family:Arial,font-size:12px;
+    classDef primary fill:#0074D9,stroke:#E0E0E0,color:#FFFFFF,font-family:Arial,font-size:12px;
 
-    %% Clase para nodos principales/de proceso (azul marino oscuro)
-    classDef grey fill:#001f3f,stroke:#EAEAEA,color:#FFFFFF;
-
-    %% Clase para nodos de entrada/salida/UI (azul medio)
-    classDef primary fill:#0074D9,stroke:#EAEAEA,color:#FFFFFF;
-
-    %% Aplicar las clases a los nodos específicos
     class A,G,H primary;
     class B,C,D,E,F grey;
 ```
