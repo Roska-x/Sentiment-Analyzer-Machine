@@ -62,8 +62,17 @@ graph TD
     F -- "HTML Parcial" --> G["HTMX actualiza Pantalla"];
     G --> H["GSAP anima Aparición"];
 
-    classDef grey fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef primary fill:#ccf,stroke:#333,stroke-width:2px;
+    %% --- Estilos Mejorados para Contraste en Tema Oscuro ---
+
+    %% Clase para nodos principales/de proceso (azul marino oscuro)
+    classDef grey fill:#001f3f,stroke:#EAEAEA,color:#FFFFFF;
+    %% Nodos de esta clase: B (Preprocesamiento), C (Vectorización), D (Modelo), E (Mapeo), F (Backend Flask)
+
+    %% Clase para nodos de entrada/salida/UI (azul medio o un gris claro)
+    classDef primary fill:#0074D9,stroke:#EAEAEA,color:#FFFFFF;
+    %% Nodos de esta clase: A (Input Usuario), G (HTMX Actualiza), H (GSAP Anima)
+
+    %% Aplicar las clases a los nodos específicos
     class A,G,H primary;
     class B,C,D,E,F grey;
 ```
