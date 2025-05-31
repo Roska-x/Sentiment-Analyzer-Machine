@@ -209,7 +209,7 @@ sentiment_analyzer/
 
 Franco Donati
 
-linkedin.com/in/franco-donati/
+https://linkedin.com/in/franco-donati/
 
 https://github.com/Roska-x/Sentymental-Analysis-Machine/
 
