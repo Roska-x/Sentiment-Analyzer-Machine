@@ -66,6 +66,21 @@ graph TD
     classDef primary fill:#ccf,stroke:#333,stroke-width:2px;
     class A,G,H primary;
     class B,C,D,E,F grey;
+```mermaid
+graph TD
+    A["Texto Crudo (Input Usuario)"] --> B["Preprocesamiento (NLTK)"];
+    B -- "Texto Limpio" --> C["Vectorización TF-IDF (scikit-learn)"];
+    C -- "Vector Numérico" --> D["Modelo Regresión Logística (scikit-learn)"];
+    D -- "Predicción (-1, 0, 1) + Probabilidades" --> E["Mapeo a Etiqueta Texto (Flask/Python)"];
+    E -- "Resultado Formateado" --> F["Backend Flask genera HTML"];
+    F -- "HTML Parcial" --> G["HTMX actualiza Pantalla"];
+    G --> H["GSAP anima Aparición"];
+
+    classDef grey fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef primary fill:#ccf,stroke:#333,stroke-width:2px;
+    class A,G,H primary;
+    class B,C,D,E,F grey;
+```
 
 
 
