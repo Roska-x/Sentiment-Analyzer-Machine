@@ -22,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100" style="background-color: #0a0a0a;"> {# <--- CAMBIÉ EL COLOR AQUÍ PARA QUE COINCIDA CON TU ÚLTIMO CSS #}
+<body class="d-flex justify-content-center align-items-center vh-100" style="background-color: #0a0a0a;"> 
     <div id="sentiment-machine" class="machine-casing">
         <div class="machine-internal-layout">
             <div class="machine-display-section">                          
@@ -30,10 +30,10 @@
                 <div class="machine-screen">
                     {# Contenido anterior hardcodeado:
                     <div id="sentiment-result" class="sentiment-result-screen-content">
-                        <p>Espero tu texto...</p>
+                        <p>I wait for your text...</p>
                     </div> 
                     #}
-                    {{ initial_sentiment_html_content | safe }} {# Flask insertará el fragmento renderizado aquí #}
+                    {{ initial_sentiment_html_content | safe }} 
                 </div>
              </div>
 
@@ -41,8 +41,8 @@
             </div>
 
              <div class="machine-input-section">
-                 <label for="visibleCommentInput" class="input-label">Tu Comentario:</label>
-                 <textarea class="machine-input-area" id="visibleCommentInput" rows="4" placeholder="Escribe tu comentario aquí..."></textarea>
+                 <label for="visibleCommentInput" class="input-label">Your Comment:</label>
+                 <textarea class="machine-input-area" id="visibleCommentInput" rows="4" placeholder="Your comment here..."></textarea>
              </div>
 
             <div class="machine-controls-section">
@@ -66,7 +66,7 @@
                 hx-swap="outerHTML">
 
                  <div class="machine-input-wrapper">
-                     <label for="formCommentText" class="input-label">Tu Comentario:</label>
+                     <label for="formCommentText" class="input-label">Your Comment:</label>
                       <textarea class="machine-input-area" id="formCommentText" name="comment_text" rows="4"></textarea>
                  </div>
 

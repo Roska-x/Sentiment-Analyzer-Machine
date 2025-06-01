@@ -1,9 +1,9 @@
 {# templates/_sentiment_result.html #}
 <div id="sentiment-result" class="sentiment-result-screen-content">
-    {% if sentiment == "Positivo" %}
+    {% if sentiment == "Positive" %}
         <i class="bi bi-emoji-smile-fill sentiment-icon positive"></i>
         <p class="sentiment-text positive">{{ sentiment }}</p>
-    {% elif sentiment == "Negativo" %}
+    {% elif sentiment == "Negative" %}
         <i class="bi bi-emoji-frown-fill sentiment-icon negative"></i>
         <p class="sentiment-text negative">{{ sentiment }}</p>
     {% elif sentiment == "Neutral" %}
@@ -15,8 +15,7 @@
     {% elif sentiment == "Error" %}
         <i class="bi bi-exclamation-triangle-fill sentiment-icon error"></i>
         <p class="sentiment-text error">{{ sentiment }}</p>
-    {% elif sentiment == "Espero tu texto..." %} {# Caso específico para el mensaje inicial #}
-        {# <i class="bi bi-chat-dots-fill sentiment-icon unknown"></i> QUITAR O COMENTAR ESTA LÍNEA #}
+    {% elif sentiment == "i wait for your text..." %} {# Caso específico para el mensaje inicial #}
         <p class="sentiment-text unknown" style="font-size: 1.1em; margin-top: 10px;">{{ sentiment }}</p> {# Ajuste opcional de estilo para centrar mejor el texto sin icono #}
     {% else %} {# Cualquier otro caso "desconocido" #}
         <i class="bi bi-question-circle-fill sentiment-icon unknown"></i>

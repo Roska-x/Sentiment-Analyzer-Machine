@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <path class="ecg-path" d="M0,25 Q10,25 20,25 T40,25 Q45,5 50,25 T70,25 Q75,45 80,25 T100,25 Q105,15 110,25 T130,25 Q135,35 140,25 T160,25 Q165,10 170,25 T190,25 L200,25" stroke-width="2" fill="none"/>
                 </svg>
             </div>
-            <p class="sentiment-text analyzing-text">ANALIZANDO...</p>
+            <p class="sentiment-text analyzing-text">ANALYZING...</p>
         `;
         resultDisplay.className = 'sentiment-result-screen-content analyzing-state';
 
