@@ -214,12 +214,12 @@ https://linkedin.com/in/franco-donati/
 https://github.com/Roska-x/Sentymental-Analysis-Machine/
 
 
-## ==========================================================================
+## ======================================================================
 
-Sentiment Analyzer Machine
+## Sentiment Analyzer Machine
 
 
-License
+## License
 
 This project (all code: Python, HTML, CSS, JavaScript) is under the MIT License. You can find the full license text in the LICENSE file in the root of the repository.
 
@@ -233,13 +233,13 @@ If you remix, transform, or build upon the dataset or trained model and distribu
 
 If you plan to use this code for a commercial purpose, you will need to use a different dataset whose license permits it and retrain the model with that new dataset.
 
-Project Description
+## Project Description
 
 This is an interactive web application that simulates a "Sentiment Analysis Machine". The backend, developed with Python and Flask, implements a basic Natural Language Processing (NLP) and Machine Learning pipeline for text classification. The user enters text through a web interface (built with modern HTML/CSS), and an asynchronous request (handled by HTMX) sends the text to the backend. The system predicts the predominant sentiment of the text (Positive, Negative, or Neutral) using a supervised classification model (Logistic Regression). The result and a confidence indicator are dynamically displayed on the interface's "digital screen" with animations (GSAP).
 
 This project serves as a practical demonstration of integrating predictive models into functional web applications, showing how an ML result can be interactively presented on the frontend.
 
-Key Features
+## Key Features
 
 Sentiment Classification: Predicts the sentiment of a text (Positive, Negative, Neutral) using a Logistic Regression model.
 
@@ -257,31 +257,32 @@ Dynamic display of results and confidence on a simulated screen.
 
 Efficient serialization and loading of the model and vectorizer (joblib).
 
-Technologies Used
+## Technologies Used
 
-Backend (Python):
+**Backend (Python):**
 
-Flask: Web microframework.
+**Flask:** Web microframework.
 
-scikit-learn: Implementation of the Logistic Regression model and TfidfVectorizer.
+**scikit-learn:** Implementation of the Logistic Regression model and TfidfVectorizer.
 
-pandas: Dataset loading and manipulation.
+**pandas:** Dataset loading and manipulation.
 
-nltk: Tools for Natural Language Processing (NLP).
+**nltk:** Tools for Natural Language Processing (NLP).
 
-joblib: Python object serialization.
+**joblib**: Python object serialization.
 
-Frontend (Web):
+**Frontend (Web):**
 
-HTML5, CSS3: Structure and styling (layout with Flexbox/Grid, neumorphic/beveled design).
+**HTML5, CSS3:** Structure and styling (layout with Flexbox/Grid, neumorphic/beveled design).
 
-HTMX: Asynchronous interaction without complex JavaScript.
+**HTMX:** Asynchronous interaction without complex JavaScript.
 
-GSAP: Web animations.
+**GSAP:** Web animations.
 
-Bootstrap (partial): Icons (Bootstrap Icons), layout utilities.
+**Bootstrap (partial):** Icons (Bootstrap Icons), layout utilities.
 
-How It Works (Simplified Pipeline Diagram)
+# How It Works (Simplified Pipeline Diagram)
+
 ```mermaid
 %%{init: {
     'theme': 'dark',
@@ -341,31 +342,31 @@ Systematic Debugging and Problem-Solving: Identification and resolution of error
 
 Follow these steps to get the application running on your local machine:
 
-Clone the Repository:
+1. Clone the Repository:
 
 git clone ... https://github.com/Roska-x/Sentymental-Analysis-Machine/ ...
 cd sentiment_analyzer
 
 
-Create and Activate Virtual Environment: (Highly recommended to isolate dependencies)
+1. Create and Activate Virtual Environment: (Highly recommended to isolate dependencies)
 
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 
-Install Python Dependencies:
+3. Install Python Dependencies:
 
 pip install -r requirements.txt
 
 
-Download NLTK Data: Necessary for text preprocessing.
+4. Download NLTK Data: Necessary for text preprocessing.
 
 python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('wordnet'); nltk.download('omw-1.4')"
 
 
 (If the interactive NLTK downloader opens in your terminal, confirm the downloads.)
 
-Obtain the Training Dataset:
+5. Obtain the Training Dataset:
 The dataset used is "Sentiment Analysis on Multi-Source Social Media Text" by cosmos98 on Kaggle. It contains data from Reddit and Twitter. For this project, the Reddit_Data.csv file is specifically used.
 Link to Original Dataset: https://www.kaggle.com/datasets/cosmos98/sentiment-analysis-on-multi-source-social-media
 
@@ -375,7 +376,7 @@ Note on Modifications: The Reddit_Data.csv file downloaded directly from Kaggle 
 
 Action: Download the Reddit_Data.csv file from the Kaggle link and place it in the root directory of this project (sentiment_analyzer/).
 
-Train and Save the Model:
+6. Train and Save the Model:
 Run the training script once. This will process the dataset and generate the vectorizer.pkl and sentiment_model.pkl files in the model/ folder. Ensure you've adjusted the language settings (stop_words_lang) and the regex in train_model.py (and in app.py!) if your dataset uses a language other than English or has a particular text format.
 
 python train_model.py
@@ -383,13 +384,13 @@ python train_model.py
 
 (This script may take a few minutes depending on your dataset and CPU. It should print DEBUG messages about the process and evaluation.)
 
-Run the Flask Application:
+7. Run the Flask Application:
 
 python app.py
 
 (You will see Flask DEBUG messages in your terminal.)
 
-Access the Application: Open your web browser and visit http://127.0.0.1:5000/.
+8. Access the Application: Open your web browser and visit http://127.0.0.1:5000/.
 
 ## Project Structure
 ```text
