@@ -214,11 +214,10 @@ https://linkedin.com/in/franco-donati/
 https://github.com/Roska-x/Sentymental-Analysis-Machine/
 
 
-## =========================================================================================================================================================
+## ==========================================================================
 
 Sentiment Analyzer Machine
 
-![Screenshot de la máquina Sentiment Analyzer](assets/sentiment-machine-screenshot.png)
 
 License
 
