@@ -172,7 +172,7 @@ body {
 .machine-screen .sentiment-icon.neutral,  .machine-screen .sentiment-text.neutral  { color: var(--theme-neutral-color) !important; text-shadow: 0 0 6px var(--theme-neutral-color), 0 0 10px color-mix(in srgb, var(--theme-neutral-color) 50%, transparent); }
 .machine-screen .sentiment-icon.info,     .machine-screen .sentiment-text.info     { color: var(--theme-info-color) !important;   text-shadow: 0 0 6px var(--theme-info-color), 0 0 10px color-mix(in srgb, var(--theme-info-color) 50%, transparent); }
 .machine-screen .sentiment-icon.error,    .machine-screen .sentiment-text.error    { color: var(--theme-error-color) !important;  text-shadow: 0 0 6px var(--theme-error-color), 0 0 10px color-mix(in srgb, var(--theme-error-color) 50%, transparent); }
-.machine-screen .sentiment-icon.unknown,  .machine-screen .sentiment-text.unknown  { color: var(--theme-unknown-color) !important;text-shadow: 0 0 6px var(--theme-unknown-color), 0 0 10px color-mix(in srgb, var(--theme-unknown-color) 50%, transparent); }
+.machine-screen .sentiment-icon.unknown,  .machine-screen .sentiment-text.unknown  { color: var(--theme-unknown-color) !important;text-shadow: none; }
 
 /* Etiqueta "EMOTION ANALYSIS" */
 .machine-label {
