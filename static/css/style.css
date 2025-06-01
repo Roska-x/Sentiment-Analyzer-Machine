@@ -297,10 +297,7 @@ body {
 .machine-button.heart i {
     font-size: 36px; 
     color: var(--heart-icon-color);
-    text-shadow: /* Glow del corazón */
-        0 0 6px var(--heart-icon-color),
-        0 0 8px var(--heart-icon-color),
-        0 0 10px color-mix(in srgb, var(--heart-icon-color) 50%, transparent);
+    text-shadow: 0 0 1px color-mix(in srgb, var(--heart-icon-color) 50%, transparent); 
     transition: text-shadow 0.2s ease-out, transform 0.15s ease-out;
     position: relative; 
     z-index: 1;
@@ -317,10 +314,7 @@ body {
         calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
 }
 .machine-button.heart:hover i {
-    text-shadow:
-        0 0 8px var(--heart-icon-color),
-        0 0 18px var(--heart-icon-color),
-        0 0 30px color-mix(in srgb, var(--heart-icon-color) 70%, transparent);
+    text-shadow: 0 0 2px color-mix(in srgb, var(--heart-icon-color) 70%, transparent);
     transform: scale(1.03);
 }
 
@@ -332,9 +326,7 @@ body {
 }
 .machine-button.heart:active i {
     transform: scale(0.98); 
-    text-shadow: 
-        0 0 4px var(--heart-icon-color),
-        0 0 8px color-mix(in srgb, var(--heart-icon-color) 30%, transparent);
+    text-shadow: none;
 }
 
 /* --- Botón Encendido (Power) --- */
