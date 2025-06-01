@@ -1,7 +1,7 @@
-/* static/css/style.css */
+
 
 /* --- Fuente Personalizada --- */
-/* Asegúrate de que Orbitron-Regular.ttf esté en static/fonts/ */
+
 @font-face {
     font-family: 'DigitalFont';
     src: url('../fonts/Orbitron-Regular.ttf') format('truetype'); /* Ruta relativa desde static/css/ a static/fonts/ */
@@ -36,7 +36,7 @@
     --dark-neumorphic-button: #b8c2d3;
     
     /* Variables específicas para el Botón Corazón */
-    --heart-button-bg: #0d1b2a; /* Fondo oscuro azul marino, como la pantalla */
+    --heart-button-bg: #0d1b2a; 
     --heart-button-border-inner-glow: var(--machine-accent-color);
     --heart-icon-color: var(--machine-accent-color);
 
@@ -51,7 +51,7 @@
 
 /* --- Estilos Base Global --- */
 body {
-    background-color: #0a0a0a; /* Fondo negro oscuro */
+    background-color: #0a0a0a; 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -134,8 +134,8 @@ body {
 .sentiment-result-screen-content {
     color: var(--theme-unknown-color);
     font-family: 'DigitalFont', 'Lucida Console', Monaco, monospace;
-    font-size: 1rem; /* Tamaño base para el texto "Neutral", "Confianza" */
-    line-height: 1.2; /* Reduce si era mayor */
+    font-size: 1rem; 
+    line-height: 1.2; 
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -212,7 +212,7 @@ body {
     background-color: var(--machine-input-bg);
     color: var(--machine-input-text-color);
     box-shadow:
-        inset 2px 2px 5px var(--dark-neumorphic-casing), /* Usar sombras del casing para coherencia */
+        inset 2px 2px 5px var(--dark-neumorphic-casing), 
         inset -2px -2px 5px var(--light-neumorphic-casing);
     resize: none;
     outline: none;
@@ -284,13 +284,10 @@ body {
     height: 80px;
     background-color: var(--heart-button-bg); /* Fondo oscuro */
     border-radius: 50%;
-    padding: 0; /* Quitamos el padding, el efecto de borde se hará con box-shadow múltiples */
-    box-shadow: /* Múltiples box-shadows para los anillos y el bisel interior */
-        /* Anillo exterior (ligeramente más claro que el fondo del botón) */
+    padding: 0; 
+    box-shadow: 
         0 0 0 3px color-mix(in srgb, var(--heart-button-bg) 80%, #fff 5%), 
-        /* Bisel/sombra interna para efecto de profundidad */
         inset 0 0 10px rgba(0,0,0,0.5),
-        /* Sombra neumórfica exterior sutil del casing (si se desea) o quitar */
         var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button),
         calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
     transition: box-shadow 0.2s ease-out, transform 0.15s ease-out;
@@ -298,14 +295,14 @@ body {
 
 /* El icono del corazón y su brillo interior */
 .machine-button.heart i {
-    font-size: 36px; /* Ajusta este valor para el centrado perfecto */
+    font-size: 36px; 
     color: var(--heart-icon-color);
     text-shadow: /* Glow del corazón */
         0 0 6px var(--heart-icon-color),
         0 0 8px var(--heart-icon-color),
         0 0 10px color-mix(in srgb, var(--heart-icon-color) 50%, transparent);
     transition: text-shadow 0.2s ease-out, transform 0.15s ease-out;
-    position: relative; /* Necesario si el spinner va encima */
+    position: relative; 
     z-index: 1;
 }
 
@@ -314,9 +311,9 @@ body {
 /* Hover y Active para el botón corazón */
 .machine-button.heart:hover {
     box-shadow: /* Intensificar los efectos */
-        0 0 0 4px color-mix(in srgb, var(--heart-button-bg) 70%, var(--heart-icon-color) 20%), /* Anillo exterior más brillante */
+        0 0 0 4px color-mix(in srgb, var(--heart-button-bg) 70%, var(--heart-icon-color) 20%), 
         inset 0 0 12px rgba(0,0,0,0.6),
-        var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button), /* Mantenemos la sombra neumórfica si está */
+        var(--shadow-distance-button) var(--shadow-distance-button) var(--shadow-blur-button) var(--dark-neumorphic-button), 
         calc(-1 * var(--shadow-distance-button)) calc(-1 * var(--shadow-distance-button)) var(--shadow-blur-button) var(--light-neumorphic-button);
 }
 .machine-button.heart:hover i {
@@ -328,14 +325,14 @@ body {
 }
 
 .machine-button.heart:active {
-    transform: scale(0.96); /* Un poco más de hundimiento */
-    box-shadow: /* Anillo exterior se atenúa, sombra interior más fuerte */
+    transform: scale(0.96); 
+    box-shadow: 
         0 0 0 2px color-mix(in srgb, var(--heart-button-bg) 90%, #fff 3%), 
         inset 0 0 15px rgba(0,0,0,0.7);
 }
 .machine-button.heart:active i {
-    transform: scale(0.98); /* Icono se encoge un poco más con el botón */
-    text-shadow: /* Glow muy reducido */
+    transform: scale(0.98); 
+    text-shadow: 
         0 0 4px var(--heart-icon-color),
         0 0 8px color-mix(in srgb, var(--heart-icon-color) 30%, transparent);
 }
@@ -390,8 +387,8 @@ body {
     .machine-input-section { width: calc(100% - 10px); }
     .machine-input-area { min-height: 65px; padding: 8px 10px;}
     .machine-controls-section { width: 100%; gap: 5px; }
-    .machine-button.heart { width: 70px; height: 70px; } /* Ajustado para móvil */
-    .machine-button.heart i { font-size: 30px; } /* Ajustado para móvil */
+    .machine-button.heart { width: 70px; height: 70px; } 
+    .machine-button.heart i { font-size: 30px; } 
     .machine-button.power { width: 42px; height: 42px; }
     .machine-button.power i { font-size: 20px; }
     .machine-lines-indicators { width: 35px; height: 20px; }
@@ -399,28 +396,28 @@ body {
 }
 /* --- Estilos para el Estado "Analizando" --- */
 .sentiment-result-screen-content.analyzing-state {
-    /* Puedes ajustar esto según sea necesario */
+
 }
 
 .sentiment-result-screen-content .analyzing-icon {
-    font-size: 2.2em; /* O el tamaño que prefieras */
-    color: var(--theme-info-color); /* O un color específico para "analizando" */
+    font-size: 2.2em; 
+    color: var(--theme-info-color); 
     margin-bottom: 5px;
 }
 
 .sentiment-result-screen-content .analyzing-text {
-    font-size: 1em; /* O el tamaño que prefieras */
-    color: var(--theme-info-color); /* O un color específico para "analizando" */
+    font-size: 1em; 
+    color: var(--theme-info-color); 
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
 .ecg-line-container {
-    width: 80%; /* Ajusta el ancho */
-    height: 40px; /* Ajusta la altura */
-    margin-bottom: 8px; /* Espacio debajo de la línea */
-    overflow: hidden; /* Clave para el efecto de barrido */
-    position: relative; /* Para el pseudo-elemento si lo usaras */
+    width: 80%; 
+    height: 40px; 
+    margin-bottom: 8px; 
+    overflow: hidden; 
+    position: relative; 
 }
 
 .ecg-svg {
@@ -430,8 +427,8 @@ body {
 }
 
 .ecg-path {
-    stroke: var(--theme-positive-color); /* Verde por defecto, o puedes cambiarlo */
-    stroke-dasharray: 500; /* Un valor grande para que la línea esté "dibujada" */
-    stroke-dashoffset: 500; /* Empieza "oculta" */
-    /* La animación la manejará GSAP */
+    stroke: var(--theme-positive-color); 
+    stroke-dasharray: 500; 
+    stroke-dashoffset: 500; 
+
 }
