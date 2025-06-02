@@ -121,7 +121,7 @@ def analyze_sentiment():
         print(f"DEBUG: Texto preprocesado: '{cleaned_text}'", flush=True)
         if not cleaned_text:
              print("DEBUG: Texto preprocesado resultó vacío. Devolviendo Info.", flush=True)
-             return render_template('_sentiment_result.html', sentiment="Info", details="El texto ingresado no contenía palabras relevantes para analizar.")
+             return render_template('_sentiment_result.html', sentiment="Info", details="The entered text did not contain relevant words to analyze.")
         text_vectorized = vectorizer.transform([cleaned_text])
         print(f"DEBUG: Texto vectorizado. Dimensiones: {text_vectorized.shape}", flush=True)
         prediction = model.predict(text_vectorized)[0] 
