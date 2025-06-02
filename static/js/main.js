@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DEBUG JS: main.js cargado y DOM listo.");
 
-    // --- 1. Definición de todas las constantes y variables necesarias ---
     const visibleTextarea = document.getElementById('visibleCommentInput');
     const formTextarea = document.getElementById('formCommentText');
     const analyzeButton = document.getElementById('analyzeButtonVisible');
@@ -11,13 +10,11 @@ document.addEventListener('DOMContentLoaded', function () {
     
     let heartIcon = null;
     if (analyzeButton) {
-        heartIcon = analyzeButton.querySelector('i.bi-heart-fill');
-    }
+        heartIcon = analyzeButton.querySelector('i.bi-heart-fill');  }
     let heartBeatAnim = null; // Animación del corazón
     let ecgPathAnim = null; 
     let corazonDeberiaLatir = false; 
 
-    // --- Verificaciones de elementos críticos ---
     if (!visibleTextarea) console.error("ERROR JS: No se encontró visibleTextarea #visibleCommentInput");
     if (!formTextarea) console.error("ERROR JS: No se encontró formTextarea #formCommentText");
     if (!analyzeButton) console.error("ERROR JS: No se encontró analyzeButton #analyzeButtonVisible");
@@ -25,8 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!resultDisplay) console.error("ERROR JS: No se encontró resultDisplay #sentiment-result");
     if (!heartIcon && analyzeButton) console.error("ERROR JS: No se encontró i.bi-heart-fill dentro de #analyzeButtonVisible");
 
-    // --- 2. Funciones para Animación del Latido del Corazón (GSAP) ---
-    function startHeartbeatAnimation() { // <--- NOMBRE CORRECTO DE DEFINICIÓN
+    function startHeartbeatAnimation() { 
         console.log("%cAttempting to START heartbeat. Should beat: " + corazonDeberiaLatir, "color: blue; font-weight: bold;");
         if (!corazonDeberiaLatir) {
             console.warn("Start heartbeat called, but corazonDeberiaLatir is false. Aborting.");
@@ -43,13 +39,11 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             return;
         }
-
         if (heartIcon && typeof gsap !== 'undefined') {
             if (heartBeatAnim && heartBeatAnim.isActive()) {
                 console.log("DEBUG JS: heartBeatAnim ya está activo. No se crea una nueva.");
                 return;
             }
-            
             console.log("DEBUG JS: (startHeartbeatAnimation) Matando tweens previos de heartIcon antes de crear uno nuevo.");
             gsap.killTweensOf(heartIcon); 
 
@@ -66,8 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("DEBUG JS: Nueva animación de latido del corazón creada y asignada a heartBeatAnim.");
         } else { /* logs de warning */ }
     }
-
-    function stopHeartbeatAnimation() { // <--- NOMBRE CORRECTO DE DEFINICIÓN
+    function stopHeartbeatAnimation() { 
         corazonDeberiaLatir = false; 
         console.error("DEBUG JS: --- stopHeartbeatAnimation() LLAMADA ---");
         
@@ -95,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("DEBUG JS: --- Latido del corazón TEÓRICAMENTE DETENIDO Y RESETEADO por stopHeartbeatAnimation() ---");
         } else { /* logs de warning */ }
     }
-    // --- Funciones para el estado "Analizando" y ECG ---
     function showAnalyzingState() {
         if (!resultDisplay) return;
         console.log("DEBUG JS: Mostrando estado 'Analizando...'");
@@ -126,25 +118,20 @@ document.addEventListener('DOMContentLoaded', function () {
             ecgPathAnim.kill();
             ecgPathAnim = null;
         }
-        // El contenido de resultDisplay será reemplazado por HTMX, así que no necesitamos limpiarlo aquí.
     }
-
-    // Eventos HTMX en el formulario
     if (sentimentForm) {
         sentimentForm.addEventListener('htmx:beforeRequest', function() {
             console.error("CRITICAL DEBUG: 'htmx:beforeRequest' en sentimentForm.");
             corazonDeberiaLatir = true; 
             showAnalyzingState();
-            startHeartbeatAnimation(); // <--- CORREGIDO: LLAMAR A startHeartbeatAnimation
+            startHeartbeatAnimation(); 
         });
 
-        sentimentForm.addEventListener('htmx:afterSettle', function() { // El parámetro event no se usa aquí, es opcional.
+        sentimentForm.addEventListener('htmx:afterSettle', function() { 
             console.log("DEBUG JS: sentimentForm 'htmx:afterSettle'.");
             stopAnalyzingStateAndECG(); 
         });
     }
-
-    // --- 3. Lógica de Interacción con el Usuario (Clic y Enter) ---
     function handleTextSubmit() {
         const textToAnalyze = visibleTextarea.value;
         formTextarea.value = textToAnalyze;
@@ -173,8 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    // Limpiar textarea después de petición exitosa
     if (sentimentForm && visibleTextarea) {
         sentimentForm.addEventListener('htmx:afterRequest', (event) => {
             if (event.detail.successful) {
@@ -183,8 +168,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-
-    // --- 4. Animación del Resultado del Sentimiento (GSAP) ---
     document.body.addEventListener('htmx:afterSwap', (event) => {
         if (event.detail.target && event.detail.target.id === 'sentiment-result') {
             const resultContainer = event.detail.target; 
@@ -215,22 +198,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    // --- FIN DE LA CORRECCIÓN --- EL BLOQUE FLOTANTE HA SIDO ELIMINADO ---
 
-    // --- 5. Animaciones GSAP Iniciales de la Interfaz ---
     if (typeof gsap !== 'undefined') {
         gsap.from("#sentiment-machine", {
             duration: 1, opacity: 0, y: 50, ease: "power2.out", delay: 0.2
         });
         console.log("DEBUG JS: Animación GSAP inicial de #sentiment-machine configurada.");
-
         const initialResult = document.getElementById('sentiment-result');
-        // Siempre intentar detener el corazón al inicio, haya o no resultado inicial
         console.log(">>>> (Carga Inicial) Intentando detener corazón por defecto <<<<");
         stopHeartbeatAnimation();
-
         if (initialResult && initialResult.innerHTML.trim() !== '') {
-            // Solo simular el evento de swap si hay contenido Y no es el estado 'analyzing'
             if (!initialResult.classList.contains('analyzing-state')) {
                  console.log("DEBUG JS: Hay contenido inicial. Disparando 'htmx:afterSwap' simulado para animación inicial.");
                  const fakeEvent = new CustomEvent('htmx:afterSwap', { 
@@ -246,13 +223,10 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("ERROR JS: GSAP no está definido. Funcionalidad limitada.");
     }
-
-    // --- 6. Lógica del Botón de Encendido (Decorativo) ---
-    // --- Lógica del Botón de Encendido (AHORA DETIENE EL CORAZÓN) ---
     if (powerButton) {
         powerButton.addEventListener('click', function() {
             console.warn("DEBUG JS: Botón Power clickeado - DETENIENDO CORAZÓN MANUALMENTE.");
-            stopHeartbeatAnimation(); // <--- CORREGIDO: LLAMAR A stopHeartbeatAnimation
+            stopHeartbeatAnimation(); 
             if (typeof gsap !== 'undefined') {
                 gsap.fromTo(this, 
                     { scale: 1, boxShadow: getComputedStyle(this).boxShadow }, 
@@ -267,11 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-}); // CIERRE DOMContentLoaded
-
-
-// --- Listeners de depuración HTMX Globales (FUERA del DOMContentLoaded) ---
-// Estos están bien aquí, ya que `document.body` siempre existe cuando se ejecuta el script.
+}); 
 document.body.addEventListener('htmx:beforeRequest', function(evt) {
     console.info('HTMX Event: beforeRequest', { path: evt.detail.pathInfo.path, element: evt.detail.elt, detail: evt.detail });
 });
@@ -284,13 +254,9 @@ document.body.addEventListener('htmx:afterRequest', function(evt) {
 document.body.addEventListener('htmx:sendError', function(evt) {
     console.error('HTMX Event: sendError', { path: evt.detail.pathInfo.path, element: evt.detail.elt, error: evt.detail.error, detail: evt.detail });
 });
-document.body.addEventListener('htmx:responseError', function(evt) { // Cuando el servidor responde con error (4xx, 5xx)
+document.body.addEventListener('htmx:responseError', function(evt) { 
     console.error('HTMX Event: responseError.', { path: evt.detail.pathInfo.path, target: evt.detail.target, status: evt.detail.xhr.status, response: evt.detail.xhr.responseText, detail: evt.detail });
 });
-document.body.addEventListener('htmx:swapError', function(evt) { // Cuando hay un error aplicando el swap
+document.body.addEventListener('htmx:swapError', function(evt) { 
     console.error('HTMX Event: swapError', { path: evt.detail.pathInfo.path, element: evt.detail.elt, xhr: evt.detail.xhr, detail: evt.detail });
 });
-// Considera añadir también:
-// htmx:configRequest para modificar headers, etc.
-// htmx:beforeSwap para inspeccionar el contenido antes de que se inserte.
-// htmx:afterSwap (ya lo usas para animar el resultado)

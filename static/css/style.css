@@ -12,20 +12,20 @@
 
 /* --- Variables CSS --- */
 :root {
-    /* Colores principales de la máquina */
-    --machine-casing-color: #e0e5ec;       /* Gris azulado muy claro para el neumorfismo */
-    --machine-screen-bg: #0d1b2a;           /* Azul muy oscuro para la pantalla */
-    --machine-screen-text-color: #00ffff;    /* Cyan brillante para texto pantalla por defecto */
-    --machine-element-color: #5f738c;       /* Gris azulado más oscuro para elementos (label, líneas) */
-    --machine-accent-color: #00ffff;         /* Cyan brillante para el corazón y acentos visuales */
-    --machine-input-bg: #dde3ea;             /* Un poco más oscuro que el casing para el input */
-    --machine-input-text-color: #2c3e50;     /* Texto oscuro en el input */
-    --machine-input-placeholder-color: #7f8c8d; /* Placeholder en el input */
+  
+    --machine-casing-color: #e0e5ec;     
+    --machine-screen-bg: #0d1b2a;        
+    --machine-screen-text-color: #00ffff;   
+    --machine-element-color: #5f738c;      
+    --machine-accent-color: #00ffff;     
+    --machine-input-bg: #dde3ea;             
+    --machine-input-text-color: #2c3e50;    
+    --machine-input-placeholder-color: #7f8c8d; 
 
     /* Sombras para Neumorfismo del Casing */
     --shadow-distance-casing: 3px;
     --shadow-blur-casing: 2px;
-    --light-neumorphic-casing: rgba(255, 255, 255, 0.35); /* Blanco muy translúcido */
+    --light-neumorphic-casing: rgba(255, 255, 255, 0.35); 
     --dark-neumorphic-casing: #adb9c7;
 
     /* Colores y sombras para botones genéricos (power button) */
@@ -246,7 +246,7 @@ body {
 .machine-lines-indicators { justify-self: start; margin-left: 5px; }
 .machine-button.power { justify-self: end; margin-right: 5px; }
 
-/* --- Base para los botones (Aplica a Power, el botón Corazón lo sobrescribe casi todo) --- */
+/* --- Base para los botones --- */
 .machine-button {
     display: flex;
     justify-content: center;
@@ -278,7 +278,7 @@ body {
     transition: color 0.1s ease-out;
 }
 
-/* --- Estilos Botón Corazón (Rehaciendo el efecto de la referencia) --- */
+/* --- Estilos Botón Corazón  --- */
 .machine-button.heart {
     width: 80px;
     height: 80px;

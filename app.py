@@ -6,20 +6,17 @@ import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer     
 from nltk.stem.snowball import SpanishStemmer 
-
 print("DEBUG: Iniciando script app.py...", flush=True)
 
 # --- Configuración ---
 MODEL_DIR = 'model'
 VECTORIZER_PATH = os.path.join(MODEL_DIR, 'vectorizer.pkl')
 MODEL_PATH = os.path.join(MODEL_DIR, 'sentiment_model.pkl')
-
 print(f"DEBUG: Paths del modelo configurados: {VECTORIZER_PATH}, {MODEL_PATH}", flush=True)
 
 # --- Cargar Modelo y Vectorizador Globalmente al iniciar la aplicación ---
 vectorizer = None
 model = None
-
 print(f"DEBUG: Intentando cargar modelo y vectorizador desde '{MODEL_DIR}/'", flush=True)
 try:
     vectorizer = joblib.load(VECTORIZER_PATH)
@@ -31,30 +28,20 @@ except FileNotFoundError:
     print("Por favor, ejecuta 'python train_model.py' primero para entrenar y guardar el modelo.", flush=True)
     print("-" * 50, flush=True)
 except Exception as e:
-
     print(f"ERROR inesperado al cargar modelo desde '{MODEL_DIR}/'. Tipo: {type(e).__name__}, Mensaje: {e}", flush=True)
-
-
-
 print("DEBUG: Bloque de carga de modelo/vectorizador finalizado.", flush=True)
-
 # --- Inicializar la Aplicación Flask ---
 app = Flask(__name__)
 print("DEBUG: Aplicación Flask creada.", flush=True)
 
-
 # --- Preprocesamiento del Texto ---
-
 stop_words_lang = 'english' 
-
 try:
     stop_words = set(stopwords.words(stop_words_lang))
     print(f"DEBUG: Stopwords cargadas para el idioma '{stop_words_lang}'.", flush=True)
 except LookupError:
     print(f"ERROR: No se encontraron datos de stopwords para '{stop_words_lang}'. Asegúrate de descargar NLTK data.", flush=True)
     stop_words = set() # Usar conjunto vacío como fallback para evitar errores
-
-
 if stop_words_lang == 'english':
     stemmer_or_lemmatizer = WordNetLemmatizer()
     stemming_or_lematizing_method = stemmer_or_lemmatizer.lemmatize 
@@ -72,8 +59,6 @@ else:
     stemmer_or_lemmatizer = None
     stemming_or_lematizing_method = lambda word: word 
     print(f"WARNING: Idioma '{stop_words_lang}' no soportado para lematización/stemming. Usando fallback simple.", flush=True)
-
-
 def clean_text(text):
     """
     Aplica el preprocesamiento al texto de entrada.
@@ -81,20 +66,13 @@ def clean_text(text):
     """
     if not isinstance(text, str):
         return ""
-
     text = text.lower() 
-
     text = re.sub(r'[^a-z\s]', '', text) 
-
-    # Tokenización
     try:
         tokens = nltk.word_tokenize(text)
     except LookupError:
         print("ERROR: NLTK tokenization data ('punkt') not found. Cannot tokenize.", flush=True)
         return "" 
-
-
-    # Eliminar stopwords y aplicar Stemming/Lemmatization
     processed_tokens = []
     for word in tokens:
         if word and word not in stop_words: 
@@ -103,13 +81,8 @@ def clean_text(text):
             else: 
                  if re.fullmatch(r'[a-z]+', word): 
                       processed_tokens.append(word)
-
-
     return ' '.join(processed_tokens)
-
-
 print("DEBUG: Funciones de preprocesamiento definidas.", flush=True)
-
 
 # --- Rutas de Flask ---
 
@@ -134,52 +107,31 @@ def index():
 @app.route('/analyze-sentiment', methods=['POST'])
 def analyze_sentiment():
     print("DEBUG: Request received for '/analyze-sentiment' (POST)", flush=True)
-
-    # 1. Verificar modelo/vectorizador cargados (este bloque está bien)
     if 'model' not in globals() or model is None or 'vectorizer' not in globals() or vectorizer is None:
         print("DEBUG: ERROR: Variables 'model' o 'vectorizer' no definidas o son None. No se puede analizar.", flush=True)
         return render_template('_sentiment_result.html', sentiment="Error", details="El modelo ML no está disponible. Contacta al administrador.")
-
-    # 2. Obtener texto de entrada (este bloque está bien)
     comment_text = request.form.get('comment_text')
     print(f"DEBUG: Texto de entrada recibido: '{comment_text}'", flush=True)
-
-    # 3. Validar texto no vacío (este bloque está bien)
     if not comment_text or not comment_text.strip():
         print("DEBUG: Texto de entrada vacío o solo espacios. Devolviendo Info.", flush=True)
         return render_template('_sentiment_result.html', sentiment="Info", details="Por favor, ingresa texto para analizar.")
 
     try:
-        # 4. Preprocesar el texto
         cleaned_text = clean_text(comment_text)
         print(f"DEBUG: Texto preprocesado: '{cleaned_text}'", flush=True)
-
-        # 5. Verificar texto preprocesado NO vacío
         if not cleaned_text:
              print("DEBUG: Texto preprocesado resultó vacío. Devolviendo Info.", flush=True)
              return render_template('_sentiment_result.html', sentiment="Info", details="El texto ingresado no contenía palabras relevantes para analizar.")
-
-        # 6. Vectorizar el texto (solo si cleaned_text NO está vacío)
         text_vectorized = vectorizer.transform([cleaned_text])
         print(f"DEBUG: Texto vectorizado. Dimensiones: {text_vectorized.shape}", flush=True)
-
-
-        # 7. Predecir el sentimiento y obtener probabilidades
-        prediction = model.predict(text_vectorized)[0] # Esto te da el valor numérico (-1, 0, 1)
-        probability_array = model.predict_proba(text_vectorized)[0] # Probabilidades para cada clase
-
+        prediction = model.predict(text_vectorized)[0] 
+        probability_array = model.predict_proba(text_vectorized)[0] 
         print(f"DEBUG: Predicción numérica cruda: {prediction}", flush=True)
-
-
-        # --- 8. Mapear la predicción numérica a etiqueta de texto Y calcular confianza ---
-
         sentiment_mapping = {
             1: "Positive",
             -1: "Negative",
             0: "Neutral"
         }
-
-        # Asegúrate de que la predicción numérica sea un entero para el mapeo.
         try:
             predicted_value_int = int(prediction) 
         except (ValueError, TypeError):
@@ -203,35 +155,20 @@ def analyze_sentiment():
                  class_index_in_model_classes = model_classes.index(predicted_value_int)
                  confidence_score = probability_array[class_index_in_model_classes]
                  confidence_str = f"Confidence: {confidence_score:.2f}" 
-
                  print(f"DEBUG: Cálculo de confianza exitoso. Índice: {class_index_in_model_classes}, Score: {confidence_score:.4f}", flush=True)
-
             else:
                  print(f"DEBUG (Confidence): Predicción INT {predicted_value_int} NO encontrada en model.classes_ ({model_classes}) para índice de probabilidad.", flush=True)
                  confidence_str = f"Confianza: Error al encontrar índice de clase." 
-
         except Exception as e: 
              print(f"DEBUG: ERROR inesperado CÁLCULO DE CONFIANZA: {type(e).__name__}: {e}", flush=True)
              confidence_str = "Confianza: Error de cálculo inesperado" 
-
-
-        # --- 9. Renderizar el partial HTML ---
         print(f"DEBUG: Renderizando template '_sentiment_result.html' con sentiment='{sentiment_label}', details='{confidence_str}'", flush=True)
         return render_template('_sentiment_result.html',
                                sentiment=sentiment_label,
                                details=confidence_str) 
-
-
     except Exception as e: 
          print(f"ERROR General durante el análisis del sentimiento: {type(e).__name__}: {e}", flush=True)
          return render_template('_sentiment_result.html', sentiment="Error", details=f"Error interno inesperado durante el análisis: {type(e).__name__}")
-
-
-
-
-
-
-# --- Bloque de ejecución principal para desarrollo ---
 
 if __name__ == '__main__':
     print("DEBUG: Entrando al bloque __main__. Iniciando servidor Flask.", flush=True)
