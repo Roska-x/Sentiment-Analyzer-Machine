@@ -83,9 +83,9 @@ graph TD
 
 
 
-## Habilidades Demostradas
+## Habilidades 
 
-Al construir este proyecto, he aplicado y reforzado activamente habilidades clave en:
+
 
     Machine Learning Aplicado: Implementación de un pipeline de clasificación de texto supervisada.
 
@@ -107,7 +107,7 @@ Al construir este proyecto, he aplicado y reforzado activamente habilidades clav
 
     Manejo de Datos: Carga, limpieza y transformación de datos tabulares (pandas).
 
-    Depuración Sistemática y Resolución de Problemas: Identificación y solución de errores en múltiples capas del stack (backend, frontend, pipeline de datos ML, serialización), incluyendo NameError, ValueError relacionados con tipos de datos en ML, y manejo de peticiones web. Cada error fue una oportunidad para profundizar en la comprensión del funcionamiento interno y la interoperabilidad de las herramientas.
+    Depuración Sistemática y Resolución de Problemas: Identificación y solución de errores en múltiples capas del stack (backend, frontend, pipeline de datos ML, serialización)
 
 ## Instalación y Ejecución Local
 
@@ -312,9 +312,8 @@ graph TD
     class B,C,D,E,F grey;
 ```
 
-## Skills Demonstrated
+## Skills 
 
-By building this project, I have actively applied and reinforced key skills in:
 
 Applied Machine Learning: Implementation of a supervised text classification pipeline.
 
@@ -336,7 +335,7 @@ Performant Web Animation: Integration of GSAP for smooth visual effects.
 
 Data Handling: Loading, cleaning, and transforming tabular data (pandas).
 
-Systematic Debugging and Problem-Solving: Identification and resolution of errors across multiple layers of the stack (backend, frontend, ML data pipeline, serialization), including NameError, ValueError related to data types in ML, and handling web requests. Each error was an opportunity to deepen understanding of the internal workings and interoperability of the tools.
+Systematic Debugging and Problem-Solving: Identification and resolution of errors across multiple layers of the stack (backend, frontend, ML data pipeline, serialization).
 
 ## Installation and Local Execution
 
