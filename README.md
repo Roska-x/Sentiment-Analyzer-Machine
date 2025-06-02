@@ -122,7 +122,7 @@ Sigue estos pasos para poner la aplicación en marcha en tu máquina local:
         
 
 
-2. Crear y Activar Entorno Virtual: (Altamente recomendado para aislar las dependencias)
+2. Crear y Activar Entorno Virtual: 
 
       
 python3 -m venv venv
